@@ -1,57 +1,82 @@
 package kaiser.airqualityapplication;
 
-import java.sql.Time;
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by tjdqo_000 on 2018-06-02.
  */
 
 public class EndDevice {
-    private String ID;
-    private double[] density;
+
     private String color;
+    private String ID;
+    private double density;
     private double latitude;
-    private double hardness;
-    Time time;
+    private double longitude;
 
-    public EndDevice(String ID, int density, double latitude, double hardness){
+    public EndDevice(){
+        // Defalut constructor required for calls to DataSnapshot.getValue(EndDevice.class)
+    }
+
+    public EndDevice(String color, String ID, double density, double latitude, double longitude) {
+        this.color = color;
         this.ID = ID;
-        this.density = new double[10];
-        this.color = "";
+        this.density = density;
         this.latitude = latitude;
-        this.hardness = hardness;
-        this.time = new Time(1);
+        this.longitude = longitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("ID", ID);
+        result.put("density", density);
+        result.put("latitude", latitude);
+        result.put("longitude", longitude);
 
-    public void setHardness(double hardness) {
-        this.hardness = hardness;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getHardness() {
-        return hardness;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
+        return result;
     }
 
     public void setColor(String color) {
         this.color = color;
     }
 
-    public String getID() {
-        return ID;
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setDensity(double density) {
+        this.density = density;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getColor() {
         return color;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public double getDensity() {
+        return density;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }
