@@ -123,12 +123,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     private void updateNode() {
         firebaseDatabaseRef.child("registedNode").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 EndDevice a = dataSnapshot.getValue(EndDevice.class);
                 list_EndDevice.add(a);
+
             }
 
             @Override
