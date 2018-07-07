@@ -112,7 +112,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         list_EndDevice = new ArrayList<>();
-        initNode();
+
+        if(initNode()){
+            // 초기화 성공
+            Toast.makeText(this,"Success initNode",Toast.LENGTH_LONG);
+        }else{
+            // 초기화 실패
+            Toast.makeText(this,"Failure initNode",Toast.LENGTH_LONG);
+        }
         updateNode();
     }
 
@@ -128,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    // ArrayList에 Node정보를 저장
     private void updateNode() {
         firebaseDatabaseRef.child("registedNode").addChildEventListener(new ChildEventListener() {
             @Override
