@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         buttonChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                printNode();
+                //printNode();
                 Intent intent = new Intent(MainActivity.this, BLEActivity.class);
                 startActivity(intent);
             }
