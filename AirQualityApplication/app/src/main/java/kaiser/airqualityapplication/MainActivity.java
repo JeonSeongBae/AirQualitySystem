@@ -169,11 +169,21 @@ public class MainActivity extends AppCompatActivity {
     private boolean initNode() {
         // 데이터 베이스에서 노드 정보 불러옴
         // 정보를 기반으로 class 생성
-        firebaseDatabaseRef.child("/registedNode/").child("00").setValue(new EndDevice("red", "공대5호관", 41.0, 36.366002, 127.345320));
-        firebaseDatabaseRef.child("/registedNode/").child("충대정문").setValue(new EndDevice("blue", "충대정문", 12.0, 36.366125, 127.343891));
-        firebaseDatabaseRef.child("/registedNode/").child("공대1호관").setValue(new EndDevice("yellow", "공대1호관", 45.0, 36.367810, 127.341391));
-        firebaseDatabaseRef.child("/registedNode/").child("교양관").setValue(new EndDevice("red", "교양관", 25.0, 36.368447, 127.345729));
-        firebaseDatabaseRef.child("/registedNode/").child("충대후문").setValue(new EndDevice("blue", "충대후문", 21.0, 36.368837, 127.341544));
+        firebaseDatabaseRef.child("/registedNode/").child("00").setValue(new EndDevice("red", "00", 5, 36.367829, 127.341439));
+        firebaseDatabaseRef.child("/registedNode/").child("01").setValue(new EndDevice("red", "01", 5, 36.366659, 127.343222));
+        firebaseDatabaseRef.child("/registedNode/").child("02").setValue(new EndDevice("red", "02", 5, 36.366096, 127.344004));
+        firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "03", 5, 36.365996, 127.345361));
+
+        firebaseDatabaseRef.child("/registedNode/").child("10").setValue(new EndDevice("red", "10", 5, 36.368845, 127.341549));
+        firebaseDatabaseRef.child("/registedNode/").child("11").setValue(new EndDevice("red", "11", 5, 36.368781, 127.342555));
+        firebaseDatabaseRef.child("/registedNode/").child("12").setValue(new EndDevice("red", "12", 5, 36.368616, 127.344055));
+        firebaseDatabaseRef.child("/registedNode/").child("13").setValue(new EndDevice("red", "13", 5, 36.368442, 127.345749));
+
+        firebaseDatabaseRef.child("/registedNode/").child("20").setValue(new EndDevice("red", "20", 5, 36.369843, 127.341054));
+        firebaseDatabaseRef.child("/registedNode/").child("21").setValue(new EndDevice("red", "21", 5, 36.370309, 127.342816));
+        firebaseDatabaseRef.child("/registedNode/").child("22").setValue(new EndDevice("red", "22", 5, 36.370447, 127.343805));
+        firebaseDatabaseRef.child("/registedNode/").child("23").setValue(new EndDevice("red", "23", 5, 36.370227, 127.344396));
+        firebaseDatabaseRef.child("/registedNode/").child("24").setValue(new EndDevice("red", "24", 5, 36.369303, 127.345931));
 
         return true;
     }
