@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     private void printNode() {
         for (int i = 0; i < list_EndDevice.size(); i++){
             EndDevice temp = list_EndDevice.get(i);
-            Toast.makeText(this, "ID: "+temp.getID()+"\nLatitude: "+temp.getLatitude()+"\nLongitude"+temp.getLongitude(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "ID: "+temp.getID()+"\nLatitude: "+temp.getLatitude()+"\nLongitude"+temp.getLongitude(),Toast.LENGTH_SHORT).show();
         }
     }
 
