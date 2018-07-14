@@ -1,7 +1,6 @@
 package kaiser.airqualityapplication;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage firebaseStorage;
     private StorageReference firebaseStorageRef;
     private Button buttonChoose;
-    private Uri filePath;
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +65,11 @@ public class MainActivity extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseStorageRef = firebaseStorage.getReference();
 
-        // Auth Instance 생성
-        mAuth = FirebaseAuth.getInstance();
-
         // Button 클릭 기능 생성
         buttonSaveEndDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeNewEndDevice("공대 5호관", 45, 36.123456, 37.654321);
-                //writeNewEndDeviceList();
-                // createUser(editTextID.getText().toString(), editTextDensity.getText().toString());
+                initNode();
             }
         });
         
@@ -157,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> postValues = endDevice.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Node/" + endDevice.getID(), postValues);
+        childUpdates.put("/registedNode/" + endDevice.getID(), postValues);
 
         firebaseDatabaseRef.updateChildren(childUpdates);
     }
@@ -171,9 +160,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabaseRef.child("/registedNode/").child("01").setValue(new EndDevice("red", "01", 5, 36.366659, 127.343222));
         firebaseDatabaseRef.child("/registedNode/").child("02").setValue(new EndDevice("red", "02", 5, 36.366096, 127.344004));
         firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "03", 5, 36.365996, 127.345361));
-        firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "04", 5, 36.367239, 127.343408));
-        firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "05", 5, 36.367930, 127.343891));
-
+        firebaseDatabaseRef.child("/registedNode/").child("04").setValue(new EndDevice("red", "04", 5, 36.367239, 127.343408));
+        firebaseDatabaseRef.child("/registedNode/").child("05").setValue(new EndDevice("red", "05", 5, 36.367930, 127.343891));
 
         firebaseDatabaseRef.child("/registedNode/").child("10").setValue(new EndDevice("red", "10", 5, 36.368845, 127.341549));
         firebaseDatabaseRef.child("/registedNode/").child("11").setValue(new EndDevice("red", "11", 5, 36.368781, 127.342555));
