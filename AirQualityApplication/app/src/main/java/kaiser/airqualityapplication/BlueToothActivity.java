@@ -34,7 +34,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class BLEActivity extends Activity implements Runnable {
+public class BlueToothActivity extends Activity implements Runnable {
 
     private BluetoothGattCharacteristic UART_Read;
     private BluetoothGattCharacteristic UART_Write;
@@ -71,6 +71,7 @@ public class BLEActivity extends Activity implements Runnable {
     private boolean isREAD = false;
     private String macAddress = null;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
