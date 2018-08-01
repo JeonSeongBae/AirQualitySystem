@@ -171,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabaseRef.child("/registedNode/").child("01").setValue(new EndDevice("red", "01", 5, 36.366659, 127.343222));
         firebaseDatabaseRef.child("/registedNode/").child("02").setValue(new EndDevice("red", "02", 5, 36.366096, 127.344004));
         firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "03", 5, 36.365996, 127.345361));
+        firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "04", 5, 36.367239, 127.343408));
+        firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "05", 5, 36.367930, 127.343891));
+
 
         firebaseDatabaseRef.child("/registedNode/").child("10").setValue(new EndDevice("red", "10", 5, 36.368845, 127.341549));
         firebaseDatabaseRef.child("/registedNode/").child("11").setValue(new EndDevice("red", "11", 5, 36.368781, 127.342555));

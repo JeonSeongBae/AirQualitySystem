@@ -57,7 +57,7 @@ public class BLEActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ble);
 
         mEditReceive = (EditText)findViewById(R.id.receiveString);
         mEditSend = (EditText)findViewById(R.id.sendString);
