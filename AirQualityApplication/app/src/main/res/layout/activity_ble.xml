@@ -10,13 +10,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/receiveString"
-            android:inputType="number"
-            android:text="aaa"/>
+            android:text="receiveString"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sendString"
-            android:inputType="" />
+            android:text="sendString"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
