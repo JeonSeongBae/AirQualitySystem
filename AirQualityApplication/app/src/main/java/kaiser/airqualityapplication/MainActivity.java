@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 */
+/*
     // PIN 위치 표시
     private boolean initNode() {
         // 데이터 베이스에서 노드 정보 불러옴
@@ -212,11 +213,10 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
+*/
     private String getTime(){
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
         return mFormat.format(mDate);
     }
-
 }
