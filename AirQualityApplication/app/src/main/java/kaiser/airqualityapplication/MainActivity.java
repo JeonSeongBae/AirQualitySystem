@@ -17,7 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage firebaseStorage;
     private StorageReference firebaseStorageRef;
     private Button buttonChoose;
+    long mNow;
+    Date mDate;
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 //printNode();
                 Intent intent = new Intent(MainActivity.this, BLEActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -143,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
 
-        EndDevice endDevice = new EndDevice(null,ID, density, latitude, longitude);
+        EndDevice endDevice = new EndDevice(ID, density, latitude, longitude, getTime());
         Map<String, Object> postValues = endDevice.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
@@ -152,30 +158,65 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabaseRef.updateChildren(childUpdates);
     }
 
+/*
+    // PIN 위치 표시
+    private boolean initNode2() {
+        // 데이터 베이스에서 노드 정보 불러옴
+        // 정보를 기반으로 class 생성
+        firebaseDatabaseRef.child("/registedNode/").child("00").setValue(new EndDevice("00", 36.367829, 127.341439));
+        firebaseDatabaseRef.child("/registedNode/").child("01").setValue(new EndDevice("01", 36.366659, 127.343222));
+        firebaseDatabaseRef.child("/registedNode/").child("02").setValue(new EndDevice("02", 36.366096, 127.344004));
+        firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("03", 36.365996, 127.345361));
+        firebaseDatabaseRef.child("/registedNode/").child("04").setValue(new EndDevice("04", 36.367239, 127.343408));
+        firebaseDatabaseRef.child("/registedNode/").child("05").setValue(new EndDevice("05", 36.367930, 127.343891));
 
+        firebaseDatabaseRef.child("/registedNode/").child("10").setValue(new EndDevice("10", 36.368845, 127.341549));
+        firebaseDatabaseRef.child("/registedNode/").child("11").setValue(new EndDevice("11", 36.368781, 127.342555));
+        firebaseDatabaseRef.child("/registedNode/").child("12").setValue(new EndDevice("12", 36.368616, 127.344055));
+        firebaseDatabaseRef.child("/registedNode/").child("13").setValue(new EndDevice("13", 36.368442, 127.345749));
+
+        firebaseDatabaseRef.child("/registedNode/").child("20").setValue(new EndDevice("20", 36.369843, 127.341054));
+        firebaseDatabaseRef.child("/registedNode/").child("21").setValue(new EndDevice("21", 36.370309, 127.342816));
+        firebaseDatabaseRef.child("/registedNode/").child("22").setValue(new EndDevice("22", 36.370447, 127.343805));
+        firebaseDatabaseRef.child("/registedNode/").child("23").setValue(new EndDevice("23", 36.370227, 127.344396));
+        firebaseDatabaseRef.child("/registedNode/").child("24").setValue(new EndDevice("24", 36.369303, 127.345931));
+
+        return true;
+    }
+*/
     // PIN 위치 표시
     private boolean initNode() {
         // 데이터 베이스에서 노드 정보 불러옴
         // 정보를 기반으로 class 생성
-        firebaseDatabaseRef.child("/registedNode/").child("00").setValue(new EndDevice("red", "00", 5, 36.367829, 127.341439));
-        firebaseDatabaseRef.child("/registedNode/").child("01").setValue(new EndDevice("red", "01", 5, 36.366659, 127.343222));
-        firebaseDatabaseRef.child("/registedNode/").child("02").setValue(new EndDevice("red", "02", 5, 36.366096, 127.344004));
-        firebaseDatabaseRef.child("/registedNode/").child("03").setValue(new EndDevice("red", "03", 5, 36.365996, 127.345361));
-        firebaseDatabaseRef.child("/registedNode/").child("04").setValue(new EndDevice("red", "04", 5, 36.367239, 127.343408));
-        firebaseDatabaseRef.child("/registedNode/").child("05").setValue(new EndDevice("red", "05", 5, 36.367930, 127.343891));
+        firebaseDatabaseRef.child("/Node/").child("1").setValue(new EndDevice("1", 10,36.367194, 127.342399, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("2").setValue(new EndDevice("2", 10,36.366382, 127.343674, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("3").setValue(new EndDevice("3", 10,36.366054, 127.344738, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("4").setValue(new EndDevice("4", 10,36.368823, 127.342077, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("5").setValue(new EndDevice("5", 10,36.368684, 127.343348, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("6").setValue(new EndDevice("6", 10,36.368516, 127.344979, getTime()));
 
-        firebaseDatabaseRef.child("/registedNode/").child("10").setValue(new EndDevice("red", "10", 5, 36.368845, 127.341549));
-        firebaseDatabaseRef.child("/registedNode/").child("11").setValue(new EndDevice("red", "11", 5, 36.368781, 127.342555));
-        firebaseDatabaseRef.child("/registedNode/").child("12").setValue(new EndDevice("red", "12", 5, 36.368616, 127.344055));
-        firebaseDatabaseRef.child("/registedNode/").child("13").setValue(new EndDevice("red", "13", 5, 36.368442, 127.345749));
+        firebaseDatabaseRef.child("/Node/").child("7").setValue(new EndDevice("7", 10,36.370104, 127.341966, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("8").setValue(new EndDevice("8", 10,36.370427, 127.343275, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("9").setValue(new EndDevice("9", 10,36.370367, 127.344122, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("10").setValue(new EndDevice("10", 10,36.369767, 127.345163, getTime()));
 
-        firebaseDatabaseRef.child("/registedNode/").child("20").setValue(new EndDevice("red", "20", 5, 36.369843, 127.341054));
-        firebaseDatabaseRef.child("/registedNode/").child("21").setValue(new EndDevice("red", "21", 5, 36.370309, 127.342816));
-        firebaseDatabaseRef.child("/registedNode/").child("22").setValue(new EndDevice("red", "22", 5, 36.370447, 127.343805));
-        firebaseDatabaseRef.child("/registedNode/").child("23").setValue(new EndDevice("red", "23", 5, 36.370227, 127.344396));
-        firebaseDatabaseRef.child("/registedNode/").child("24").setValue(new EndDevice("red", "24", 5, 36.369303, 127.345931));
+        firebaseDatabaseRef.child("/Node/").child("11").setValue(new EndDevice("11", 10,36.369311, 127.341306, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("12").setValue(new EndDevice("12", 10,36.368257, 127.341451, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("13").setValue(new EndDevice("13", 10,36.369433, 127.344164, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("14").setValue(new EndDevice("14", 10,36.368295, 127.343995, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("15").setValue(new EndDevice("15", 10,36.367582, 127.343656, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("16").setValue(new EndDevice("16", 10,36.366907, 127.343345, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("17").setValue(new EndDevice("17", 10,36.369547, 127.342676, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("18").setValue(new EndDevice("18", 10,36.368834, 127.345832, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("19").setValue(new EndDevice("19", 10,36.367142, 127.345559, getTime()));
 
         return true;
+    }
+
+    private String getTime(){
+        mNow = System.currentTimeMillis();
+        mDate = new Date(mNow);
+        return mFormat.format(mDate);
     }
 
 }
