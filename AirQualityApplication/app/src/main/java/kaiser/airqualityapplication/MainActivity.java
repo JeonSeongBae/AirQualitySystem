@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -74,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
         buttonSaveEndDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //initNode();
+                String inputID = editTextID.getText().toString();
+                double inputDensity = Double.parseDouble(editTextDensity.getText().toString());
+                double inputLatitude = Double.parseDouble(editTextLatitude.getText().toString());
+                double inputLongitude = Double.parseDouble(editTextLongitude.getText().toString());
+                writeNewEndDevice(inputID, inputDensity, inputLatitude, inputLongitude);
             }
         });
         
@@ -146,17 +151,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void writeNewEndDevice(String ID, double density, double latitude, double longitude) {
+    private void writeNewEndDevice(final String ID, final double density, final double latitude, final double longitude) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
 
-        EndDevice endDevice = new EndDevice(ID, density, latitude, longitude, getTime());
-        Map<String, Object> postValues = endDevice.toMap();
+        firebaseDatabaseRef.child("Node").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                EndDevice endDevice = dataSnapshot.getValue(EndDevice.class);
+                if (endDevice.getID().equals(ID)){
+                    endDevice.setDensity(density);
+                    endDevice.setLatitude(latitude);
+                    endDevice.setLongitude(longitude);
+                    Map<String, Object> postValues = endDevice.toMap();
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/Node/" + endDevice.getID(), postValues);
 
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/registedNode/" + endDevice.getID(), postValues);
+                    firebaseDatabaseRef.updateChildren(childUpdates);
+                }
+            }
 
-        firebaseDatabaseRef.updateChildren(childUpdates);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        // EndDevice endDevice = new EndDevice(ID, density, latitude, longitude, getTime());
+
     }
 
 /*
@@ -185,36 +206,38 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 */
-/*
+
     // PIN 위치 표시
     private boolean initNode() {
+        /*
         // 데이터 베이스에서 노드 정보 불러옴
         // 정보를 기반으로 class 생성
-        firebaseDatabaseRef.child("/Node/").child("1").setValue(new EndDevice("1", 10,36.367194, 127.342399, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("2").setValue(new EndDevice("2", 10,36.366382, 127.343674, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("3").setValue(new EndDevice("3", 10,36.366054, 127.344738, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("4").setValue(new EndDevice("4", 10,36.368823, 127.342077, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("5").setValue(new EndDevice("5", 10,36.368684, 127.343348, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("6").setValue(new EndDevice("6", 10,36.368516, 127.344979, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("0").setValue(new EndDevice("0", 60,36.367194, 127.342399, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("1").setValue(new EndDevice("1", 80,36.366382, 127.343674, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("2").setValue(new EndDevice("2", 95,36.366054, 127.344738, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("3").setValue(new EndDevice("3", 70,36.368823, 127.342077, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("4").setValue(new EndDevice("4", 67,36.368684, 127.343348, getTime()));
 
-        firebaseDatabaseRef.child("/Node/").child("7").setValue(new EndDevice("7", 10,36.370104, 127.341966, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("8").setValue(new EndDevice("8", 10,36.370427, 127.343275, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("9").setValue(new EndDevice("9", 10,36.370367, 127.344122, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("10").setValue(new EndDevice("10", 10,36.369767, 127.345163, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("5").setValue(new EndDevice("5", 89,36.368516, 127.344979, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("6").setValue(new EndDevice("6", 48,36.370104, 127.341966, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("7").setValue(new EndDevice("7", 120,36.370427, 127.343275, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("8").setValue(new EndDevice("8", 110,36.370367, 127.344122, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("9").setValue(new EndDevice("9", 97,36.369767, 127.345163, getTime()));
 
-        firebaseDatabaseRef.child("/Node/").child("11").setValue(new EndDevice("11", 10,36.369311, 127.341306, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("12").setValue(new EndDevice("12", 10,36.368257, 127.341451, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("13").setValue(new EndDevice("13", 10,36.369433, 127.344164, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("14").setValue(new EndDevice("14", 10,36.368295, 127.343995, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("15").setValue(new EndDevice("15", 10,36.367582, 127.343656, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("16").setValue(new EndDevice("16", 10,36.366907, 127.343345, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("17").setValue(new EndDevice("17", 10,36.369547, 127.342676, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("18").setValue(new EndDevice("18", 10,36.368834, 127.345832, getTime()));
-        firebaseDatabaseRef.child("/Node/").child("19").setValue(new EndDevice("19", 10,36.367142, 127.345559, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("10").setValue(new EndDevice("10", 103,36.369311, 127.341306, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("11").setValue(new EndDevice("11", 46,36.368257, 127.341451, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("12").setValue(new EndDevice("12", 92,36.369433, 127.344164, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("13").setValue(new EndDevice("13", 57,36.368295, 127.343995, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("14").setValue(new EndDevice("14", 69,36.367582, 127.343656, getTime()));
 
+        firebaseDatabaseRef.child("/Node/").child("15").setValue(new EndDevice("15", 42,36.366907, 127.343345, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("16").setValue(new EndDevice("16", 38,36.369547, 127.342676, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("17").setValue(new EndDevice("17", 104,36.368834, 127.345832, getTime()));
+        firebaseDatabaseRef.child("/Node/").child("18").setValue(new EndDevice("18", 19,36.367142, 127.345559, getTime()));
+*/
         return true;
     }
-*/
+
     private String getTime(){
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
