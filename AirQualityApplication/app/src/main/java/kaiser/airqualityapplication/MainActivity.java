@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSaveEndDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initNode();
+                //initNode();
             }
         });
         
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         list_EndDevice = new ArrayList<>();
-
+/*
         if(initNode()){
             // 초기화 성공
             Toast.makeText(this,"Success initNode",Toast.LENGTH_LONG).show();
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             // 초기화 실패
             Toast.makeText(this,"Failure initNode",Toast.LENGTH_LONG).show();
         }
+        */
         updateNode();
     }
 
